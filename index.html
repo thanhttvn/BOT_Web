@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="lodash.core.js"></script>
+    <script src="js/script.min..js"></script>
+	<script src="js/jquery-2.1.0.js"></script>
+</head>
+<body>
+<label>Nhap key</label><input id="key" /><br/>
+<label>Nhap value</label><input id="value" /><br/>
+<button id="addToJson">Add to json</button>
+<p id="noidungjson">
+
+</p>
+
+</body>
+<script type="text/javascript">
+    var arr = [];
+	var arr_value = [];
+    $(document).ready(function($) {
+        $('#addToJson').click(function(event) {
+		var myData = localStorage.getItem('data');
+		arr = jQuery.parseJSON(myData);
+		var checkDuplicate = false;
+		arr.forEach(function(item) {
+			if(item.key == $('#key').val()){
+				item.value.push($('#value').val());
+				checkDuplicate = true;
+			}
+		});
+        if(!checkDuplicate){
+			var obj =  {
+            "key": $('#key').val(),
+            "value": [$('#value').val()]
+        };
+		arr.push(obj);
+		}
+		
+        var json = JSON.stringify(arr);
+		localStorage.setItem("data", JSON.stringify(arr));
+		
+        console.log(json);
+        });
+    });
+
+</script>
+
+</html>
